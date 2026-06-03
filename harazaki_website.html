@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV Harazaki Togat Mentawai — Konsultan Konstruksi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────── */
+    :root {
+      --gold:       #C9A84C;
+      --gold-light: #E8C97A;
+      --gold-dark:  #9A7530;
+      --navy:       #0D1B3E;
+      --navy-mid:   #1A2D5A;
+      --navy-light: #253A6E;
+      --cream:      #F5F0E8;
+      --cream-dark: #EDE5D5;
+      --white:      #FFFFFF;
+      --text-dark:  #0D1B3E;
+      --text-body:  #3A4460;
+      --text-light: #7A8AAA;
+
+      --font-display: 'Playfair Display', serif;
+      --font-elegant: 'Cormorant Garamond', serif;
+      --font-body:    'Outfit', sans-serif;
+
+      --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* ─── RESET ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ─── CUSTOM SCROLLBAR ───────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--navy); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+    /* ─── CURSOR ─────────────────────────────────────────── */
+    .cursor {
+      position: fixed; pointer-events: none; z-index: 9999;
+      width: 12px; height: 12px; background: var(--gold);
+      border-radius: 50%; transform: translate(-50%, -50%);
+      transition: transform 0.15s var(--ease-smooth), width 0.3s, height 0.3s, opacity 0.3s;
+    }
+    .cursor-ring {
+      position: fixed; pointer-events: none; z-index: 9998;
+      width: 36px; height: 36px; border: 1.5px solid var(--gold);
+      border-radius: 50%; transform: translate(-50%, -50%);
+      transition: transform 0.4s var(--ease-smooth), width 0.3s, height 0.3s, opacity 0.3s;
+      opacity: 0.6;
+    }
+    .cursor.hovered { width: 20px; height: 20px; }
+    .cursor-ring.hovered { width: 56px; height: 56px; opacity: 0.3; }
+
+    /* ─── LOADING SCREEN ─────────────────────────────────── */
+    #loader {
+      position: fixed; inset: 0; background: var(--navy);
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; z-index: 10000;
+      transition: opacity 0.8s var(--ease-smooth), visibility 0.8s;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; }
+    .loader-logo {
+      display: flex; flex-direction: column; align-items: center; gap: 16px;
+    }
+    .loader-icon {
+      width: 80px; height: 80px;
+      animation: loaderPulse 1.5s ease-in-out infinite;
+    }
+    .loader-text {
+      font-family: var(--font-display); font-size: 28px;
+      color: var(--gold); letter-spacing: 8px; font-weight: 600;
+    }
+    .loader-sub {
+      font-family: var(--font-body); font-size: 11px; color: var(--gold-light);
+      letter-spacing: 4px; text-transform: uppercase; opacity: 0.7;
+    }
+    .loader-bar-wrap {
+      margin-top: 40px; width: 200px; height: 2px;
+      background: rgba(201,168,76,0.2); border-radius: 1px; overflow: hidden;
+    }
+    .loader-bar {
+      height: 100%; background: var(--gold); border-radius: 1px;
+      animation: loadBar 2s var(--ease-smooth) forwards;
+    }
+    @keyframes loadBar { from { width: 0; } to { width: 100%; } }
+    @keyframes loaderPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.8; }
+    }
+
+    /* ─── NAVBAR ─────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 20px 6vw; display: flex; align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s var(--ease-smooth),
+                  box-shadow 0.4s, padding 0.3s;
+    }
+    nav.scrolled {
+      background: rgba(13, 27, 62, 0.96);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 40px rgba(0,0,0,0.3);
+      padding: 14px 6vw;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 14px; text-decoration: none;
+    }
+    .nav-brand-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+    }
+    .nav-brand-text { display: flex; flex-direction: column; }
+    .nav-brand-title {
+      font-family: var(--font-display); font-size: 16px; font-weight: 700;
+      color: var(--gold); letter-spacing: 2px; line-height: 1.1;
+    }
+    .nav-brand-sub {
+      font-family: var(--font-body); font-size: 9px; color: var(--gold-light);
+      letter-spacing: 3px; text-transform: uppercase; opacity: 0.8;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 40px; list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-body); font-size: 12px; font-weight: 500;
+      color: var(--cream); text-decoration: none; letter-spacing: 2px;
+      text-transform: uppercase; position: relative; padding-bottom: 4px;
+      transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 1px; background: var(--gold);
+      transition: width 0.3s var(--ease-smooth);
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      background: transparent; border: 1px solid var(--gold);
+      color: var(--gold) !important; padding: 10px 24px;
+      border-radius: 2px; transition: background 0.3s, color 0.3s !important;
+    }
+    .nav-cta:hover { background: var(--gold) !important; color: var(--navy) !important; }
+    .nav-cta::after { display: none !important; }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 8px; background: none; border: none;
+    }
+    .hamburger span {
+      width: 26px; height: 2px; background: var(--gold);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile nav */
+    .mobile-menu {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--navy); z-index: 999;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 40px;
+      transform: translateX(100%); transition: transform 0.4s var(--ease-smooth);
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu a {
+      font-family: var(--font-display); font-size: 32px; font-weight: 600;
+      color: var(--cream); text-decoration: none; letter-spacing: 2px;
+      transition: color 0.3s;
+    }
+    .mobile-menu a:hover { color: var(--gold); }
+
+    /* ─── HERO ───────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh; position: relative; overflow: hidden;
+      display: flex; align-items: center;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #0A2240 100%);
+    }
+    .hero-bg-pattern {
+      position: absolute; inset: 0; opacity: 0.04;
+      background-image:
+        repeating-linear-gradient(45deg, var(--gold) 0, var(--gold) 1px, transparent 0, transparent 50%);
+      background-size: 40px 40px;
+    }
+    .hero-orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(100px); pointer-events: none;
+    }
+    .hero-orb-1 {
+      width: 600px; height: 600px; top: -200px; right: -100px;
+      background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%);
+      animation: orbFloat 8s ease-in-out infinite;
+    }
+    .hero-orb-2 {
+      width: 400px; height: 400px; bottom: -100px; left: 10%;
+      background: radial-gradient(circle, rgba(37,58,110,0.6) 0%, transparent 70%);
+      animation: orbFloat 10s ease-in-out infinite reverse;
+    }
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -20px) scale(1.05); }
+      66% { transform: translate(-20px, 30px) scale(0.95); }
+    }
+    .hero-content {
+      position: relative; z-index: 2; padding: 140px 6vw 80px;
+      max-width: 1400px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 1px solid rgba(201,168,76,0.4); padding: 8px 18px;
+      border-radius: 2px; margin-bottom: 28px;
+      opacity: 0; animation: fadeUp 0.8s 0.5s var(--ease-smooth) forwards;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px; background: var(--gold);
+      border-radius: 50%; animation: blink 2s infinite;
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    .hero-badge span {
+      font-family: var(--font-body); font-size: 10px; color: var(--gold-light);
+      letter-spacing: 3px; text-transform: uppercase;
+    }
+    .hero-title {
+      font-family: var(--font-display); font-size: clamp(42px, 5.5vw, 72px);
+      font-weight: 900; color: var(--white); line-height: 1.05;
+      letter-spacing: -1px; margin-bottom: 8px;
+      opacity: 0; animation: fadeUp 0.8s 0.7s var(--ease-smooth) forwards;
+    }
+    .hero-title-gold {
+      color: var(--gold);
+      display: block;
+    }
+    .hero-subtitle {
+      font-family: var(--font-elegant); font-size: clamp(18px, 2.2vw, 26px);
+      color: rgba(245,240,232,0.7); font-weight: 300; font-style: italic;
+      margin-bottom: 32px;
+      opacity: 0; animation: fadeUp 0.8s 0.9s var(--ease-smooth) forwards;
+    }
+    .hero-desc {
+      font-size: 15px; color: rgba(245,240,232,0.6); line-height: 1.8;
+      max-width: 480px; margin-bottom: 44px;
+      opacity: 0; animation: fadeUp 0.8s 1.1s var(--ease-smooth) forwards;
+    }
+    .hero-actions {
+      display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.8s 1.3s var(--ease-smooth) forwards;
+    }
+    .btn-primary {
+      background: var(--gold); color: var(--navy); padding: 16px 36px;
+      font-family: var(--font-body); font-size: 12px; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
+      border-radius: 2px; transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 8px 30px rgba(201,168,76,0.3);
+    }
+    .btn-primary:hover {
+      background: var(--gold-light); transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(201,168,76,0.4);
+    }
+    .btn-outline {
+      background: transparent; color: var(--cream);
+      border: 1px solid rgba(245,240,232,0.3); padding: 16px 36px;
+      font-family: var(--font-body); font-size: 12px; font-weight: 500;
+      letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
+      border-radius: 2px; transition: border-color 0.3s, color 0.3s, transform 0.3s;
+    }
+    .btn-outline:hover {
+      border-color: var(--gold); color: var(--gold); transform: translateY(-2px);
+    }
+    .hero-visual {
+      position: relative; display: flex; justify-content: center; align-items: center;
+      opacity: 0; animation: fadeIn 1.2s 0.8s var(--ease-smooth) forwards;
+    }
+    .hero-card-stack { position: relative; width: 380px; height: 420px; }
+    .hero-card {
+      position: absolute; background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,168,76,0.15); border-radius: 4px;
+      backdrop-filter: blur(10px);
+    }
+    .hero-card-1 {
+      width: 300px; height: 360px; top: 30px; left: 60px;
+      transform: rotate(6deg);
+      background: linear-gradient(135deg, rgba(26,45,90,0.8), rgba(13,27,62,0.9));
+    }
+    .hero-card-2 {
+      width: 300px; height: 360px; top: 0; left: 40px;
+      transform: rotate(2deg);
+      background: linear-gradient(135deg, rgba(37,58,110,0.7), rgba(26,45,90,0.8));
+    }
+    .hero-card-3 {
+      width: 310px; height: 370px; top: 20px; left: 30px;
+      background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(37,58,110,0.6));
+      display: flex; flex-direction: column; padding: 36px 32px;
+    }
+    .hero-card-logo {
+      width: 60px; height: 60px; margin-bottom: 20px;
+    }
+    .hero-card-label {
+      font-family: var(--font-body); font-size: 9px; color: var(--gold);
+      letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px;
+    }
+    .hero-card-name {
+      font-family: var(--font-display); font-size: 22px; font-weight: 700;
+      color: var(--white); line-height: 1.2; margin-bottom: 24px;
+    }
+    .hero-card-divider {
+      width: 40px; height: 1px; background: var(--gold); margin-bottom: 20px;
+    }
+    .hero-card-stat { display: flex; flex-direction: column; gap: 12px; }
+    .hero-stat-item { display: flex; justify-content: space-between; align-items: center; }
+    .hero-stat-label {
+      font-size: 10px; color: rgba(245,240,232,0.5); letter-spacing: 1px;
+    }
+    .hero-stat-value {
+      font-family: var(--font-display); font-size: 14px; color: var(--gold);
+      font-weight: 600;
+    }
+    .hero-stats {
+      margin-top: 60px; display: flex; gap: 40px;
+      opacity: 0; animation: fadeUp 0.8s 1.5s var(--ease-smooth) forwards;
+    }
+    .hero-stat-num {
+      font-family: var(--font-display); font-size: 36px; font-weight: 700;
+      color: var(--gold); line-height: 1;
+    }
+    .hero-stat-desc { font-size: 11px; color: rgba(245,240,232,0.5); letter-spacing: 1px; margin-top: 4px; }
+    .scroll-indicator {
+      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      animation: float 2s ease-in-out infinite;
+    }
+    .scroll-indicator span {
+      font-size: 9px; color: rgba(201,168,76,0.6); letter-spacing: 3px; text-transform: uppercase;
+    }
+    .scroll-arrow {
+      width: 1px; height: 50px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+    @keyframes float {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ─── ANIMATIONS ─────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.8s var(--ease-smooth), transform 0.8s var(--ease-smooth);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left {
+      opacity: 0; transform: translateX(-40px);
+      transition: opacity 0.8s var(--ease-smooth), transform 0.8s var(--ease-smooth);
+    }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right {
+      opacity: 0; transform: translateX(40px);
+      transition: opacity 0.8s var(--ease-smooth), transform 0.8s var(--ease-smooth);
+    }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    /* ─── SECTION BASE ───────────────────────────────────── */
+    section { padding: 120px 6vw; }
+    .section-container { max-width: 1300px; margin: 0 auto; }
+    .section-eyebrow {
+      display: flex; align-items: center; gap: 16px; margin-bottom: 20px;
+    }
+    .eyebrow-line {
+      width: 40px; height: 1px; background: var(--gold);
+    }
+    .eyebrow-text {
+      font-family: var(--font-body); font-size: 10px; color: var(--gold);
+      letter-spacing: 4px; text-transform: uppercase; font-weight: 500;
+    }
+    .section-title {
+      font-family: var(--font-display); font-size: clamp(32px, 4vw, 52px);
+      font-weight: 700; line-height: 1.1; letter-spacing: -0.5px;
+    }
+    .section-title.light { color: var(--white); }
+    .section-title.dark { color: var(--navy); }
+
+    /* ─── ABOUT ──────────────────────────────────────────── */
+    #about {
+      background: var(--white);
+      position: relative; overflow: hidden;
+    }
+    #about::before {
+      content: 'HARAZAKI';
+      position: absolute; right: -60px; top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+      font-family: var(--font-display); font-size: 160px; font-weight: 900;
+      color: rgba(13,27,62,0.03); letter-spacing: 20px; pointer-events: none;
+    }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center;
+    }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img-frame {
+      position: relative; padding: 20px 0 0 20px;
+    }
+    .about-img-frame::before {
+      content: ''; position: absolute; top: 0; left: 0;
+      width: 60%; height: 60%; border-top: 2px solid var(--gold);
+      border-left: 2px solid var(--gold);
+    }
+    .about-img-frame::after {
+      content: ''; position: absolute; bottom: -20px; right: -20px;
+      width: 60%; height: 60%; border-bottom: 2px solid var(--gold-dark);
+      border-right: 2px solid var(--gold-dark);
+    }
+    .about-img-inner {
+      width: 100%; aspect-ratio: 4/5;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 50%, var(--navy-light) 100%);
+      border-radius: 2px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 16px;
+      position: relative; overflow: hidden;
+    }
+    .about-img-inner::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(
+        45deg, rgba(201,168,76,0.05) 0, rgba(201,168,76,0.05) 1px,
+        transparent 0, transparent 50%);
+      background-size: 30px 30px;
+    }
+    .about-logo-big { width: 120px; height: 120px; position: relative; z-index: 1; }
+    .about-est {
+      font-family: var(--font-body); font-size: 11px; color: var(--gold-light);
+      letter-spacing: 5px; text-transform: uppercase; z-index: 1;
+    }
+    .about-year {
+      font-family: var(--font-display); font-size: 80px; font-weight: 900;
+      color: rgba(201,168,76,0.1); position: absolute; bottom: 20px;
+    }
+    .about-text .section-title { margin-bottom: 28px; }
+    .about-lead {
+      font-family: var(--font-elegant); font-size: 20px; color: var(--navy-light);
+      font-style: italic; line-height: 1.6; margin-bottom: 24px;
+    }
+    .about-body {
+      font-size: 15px; color: var(--text-body); line-height: 1.9; margin-bottom: 40px;
+    }
+    .about-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .about-tag {
+      padding: 8px 18px; border: 1px solid var(--gold-dark);
+      border-radius: 2px; font-size: 11px; color: var(--gold-dark);
+      letter-spacing: 1px; font-weight: 500;
+    }
+
+    /* ─── VISION-MISSION ──────────────────────────────────── */
+    #visi-misi {
+      background: var(--navy);
+      position: relative; overflow: hidden;
+    }
+    .vm-bg {
+      position: absolute; inset: 0;
+      background-image: radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 50%, rgba(37,58,110,0.4) 0%, transparent 60%);
+    }
+    .vm-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 60px;
+      position: relative; z-index: 1;
+    }
+    .vm-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 4px; padding: 50px 44px;
+      transition: background 0.3s, transform 0.3s, border-color 0.3s;
+    }
+    .vm-card:hover {
+      background: rgba(201,168,76,0.07); border-color: rgba(201,168,76,0.3);
+      transform: translateY(-4px);
+    }
+    .vm-icon {
+      width: 56px; height: 56px; background: rgba(201,168,76,0.12);
+      border-radius: 2px; display: flex; align-items: center; justify-content: center;
+      margin-bottom: 28px; font-size: 24px;
+    }
+    .vm-title {
+      font-family: var(--font-display); font-size: 26px; font-weight: 700;
+      color: var(--gold); margin-bottom: 20px;
+    }
+    .vm-text {
+      font-size: 15px; color: rgba(245,240,232,0.7); line-height: 1.8;
+    }
+    .vm-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    .vm-list li {
+      display: flex; align-items: flex-start; gap: 14px;
+      font-size: 14px; color: rgba(245,240,232,0.7); line-height: 1.6;
+    }
+    .vm-list li::before {
+      content: '◆'; color: var(--gold); font-size: 8px; flex-shrink: 0; margin-top: 4px;
+    }
+
+    /* ─── SERVICES ───────────────────────────────────────── */
+    #layanan {
+      background: var(--cream);
+      position: relative;
+    }
+    .services-intro {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: end; margin-bottom: 70px;
+    }
+    .services-desc {
+      font-size: 15px; color: var(--text-body); line-height: 1.9;
+    }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+    }
+    .service-card {
+      background: var(--white); border-radius: 4px; padding: 44px 40px;
+      position: relative; overflow: hidden; cursor: pointer;
+      transition: transform 0.4s var(--ease-bounce), box-shadow 0.4s;
+      box-shadow: 0 2px 20px rgba(13,27,62,0.06);
+    }
+    .service-card::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px; background: var(--gold);
+      transform: scaleY(0); transform-origin: bottom;
+      transition: transform 0.4s var(--ease-smooth);
+    }
+    .service-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(201,168,76,0.04), transparent);
+      opacity: 0; transition: opacity 0.4s;
+    }
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(13,27,62,0.12); }
+    .service-card:hover::before { transform: scaleY(1); }
+    .service-card:hover::after { opacity: 1; }
+    .service-card.featured {
+      background: var(--navy); grid-column: span 1;
+    }
+    .service-num {
+      font-family: var(--font-display); font-size: 52px; font-weight: 900;
+      color: rgba(13,27,62,0.06); line-height: 1;
+      position: absolute; top: 20px; right: 28px;
+      transition: color 0.3s;
+    }
+    .service-card.featured .service-num { color: rgba(201,168,76,0.1); }
+    .service-icon {
+      width: 52px; height: 52px; background: rgba(201,168,76,0.1);
+      border-radius: 2px; display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: 24px;
+      transition: background 0.3s;
+    }
+    .service-card.featured .service-icon { background: rgba(201,168,76,0.15); }
+    .service-card:hover .service-icon { background: rgba(201,168,76,0.2); }
+    .service-title {
+      font-family: var(--font-display); font-size: 20px; font-weight: 700;
+      color: var(--navy); margin-bottom: 14px; line-height: 1.2;
+    }
+    .service-card.featured .service-title { color: var(--gold); }
+    .service-text {
+      font-size: 14px; color: var(--text-body); line-height: 1.7;
+    }
+    .service-card.featured .service-text { color: rgba(245,240,232,0.65); }
+
+    /* ─── KEUNGGULAN ─────────────────────────────────────── */
+    #keunggulan {
+      background: var(--navy-mid);
+      position: relative; overflow: hidden;
+    }
+    .keu-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 60px;
+    }
+    .keu-item {
+      text-align: center; padding: 40px 24px;
+      border: 1px solid rgba(201,168,76,0.1); border-radius: 4px;
+      transition: border-color 0.3s, background 0.3s, transform 0.4s var(--ease-bounce);
+    }
+    .keu-item:hover {
+      border-color: rgba(201,168,76,0.4);
+      background: rgba(201,168,76,0.05);
+      transform: translateY(-6px);
+    }
+    .keu-num {
+      font-family: var(--font-display); font-size: 56px; font-weight: 900;
+      color: var(--gold); line-height: 1; margin-bottom: 8px;
+    }
+    .keu-unit { font-size: 20px; }
+    .keu-label {
+      font-size: 13px; color: rgba(245,240,232,0.6); letter-spacing: 1px;
+    }
+    .keu-desc {
+      font-size: 14px; color: rgba(245,240,232,0.5); margin-top: 8px; line-height: 1.6;
+    }
+
+    /* ─── LEGALITAS ──────────────────────────────────────── */
+    #legalitas {
+      background: var(--white);
+    }
+    .legal-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 60px;
+    }
+    .legal-card {
+      padding: 40px 36px; border: 1px solid rgba(13,27,62,0.08);
+      border-radius: 4px; transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .legal-card:hover {
+      border-color: var(--gold); transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(13,27,62,0.1);
+    }
+    .legal-icon {
+      font-size: 36px; margin-bottom: 20px; display: block;
+    }
+    .legal-title {
+      font-family: var(--font-display); font-size: 18px; font-weight: 700;
+      color: var(--navy); margin-bottom: 10px;
+    }
+    .legal-num {
+      font-family: var(--font-body); font-size: 11px; color: var(--gold-dark);
+      letter-spacing: 1px; margin-bottom: 12px;
+    }
+    .legal-desc {
+      font-size: 13px; color: var(--text-body); line-height: 1.7;
+    }
+
+    /* ─── CONTACT ────────────────────────────────────────── */
+    #kontak {
+      background: var(--navy);
+      position: relative; overflow: hidden;
+    }
+    .kontak-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .kontak-lead {
+      font-family: var(--font-elegant); font-size: 20px; font-style: italic;
+      color: rgba(245,240,232,0.6); line-height: 1.7; margin-top: 20px; margin-bottom: 50px;
+    }
+    .kontak-items { display: flex; flex-direction: column; gap: 28px; }
+    .kontak-item {
+      display: flex; align-items: flex-start; gap: 20px;
+      padding: 24px; border: 1px solid rgba(201,168,76,0.12);
+      border-radius: 4px; transition: border-color 0.3s, background 0.3s;
+    }
+    .kontak-item:hover {
+      border-color: rgba(201,168,76,0.35);
+      background: rgba(201,168,76,0.04);
+    }
+    .kontak-item-icon {
+      width: 48px; height: 48px; background: rgba(201,168,76,0.12);
+      border-radius: 2px; display: flex; align-items: center;
+      justify-content: center; font-size: 20px; flex-shrink: 0;
+    }
+    .kontak-item-label {
+      font-size: 10px; color: var(--gold); letter-spacing: 2px;
+      text-transform: uppercase; margin-bottom: 6px;
+    }
+    .kontak-item-value {
+      font-family: var(--font-body); font-size: 15px; color: var(--cream);
+      font-weight: 400; word-break: break-all;
+    }
+    .kontak-form-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 4px; padding: 50px 44px;
+    }
+    .form-title {
+      font-family: var(--font-display); font-size: 24px; font-weight: 700;
+      color: var(--gold); margin-bottom: 30px;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-label {
+      display: block; font-size: 10px; color: var(--gold-light);
+      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;
+    }
+    .form-input {
+      width: 100%; padding: 14px 18px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 2px; color: var(--cream); font-family: var(--font-body);
+      font-size: 14px; transition: border-color 0.3s, background 0.3s;
+      outline: none;
+    }
+    .form-input:focus {
+      border-color: var(--gold); background: rgba(201,168,76,0.05);
+    }
+    .form-input::placeholder { color: rgba(245,240,232,0.3); }
+    textarea.form-input { resize: vertical; min-height: 120px; }
+    .form-submit {
+      width: 100%; padding: 16px; background: var(--gold);
+      color: var(--navy); border: none; border-radius: 2px;
+      font-family: var(--font-body); font-size: 12px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase; cursor: pointer;
+      transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 8px 24px rgba(201,168,76,0.25);
+    }
+    .form-submit:hover {
+      background: var(--gold-light); transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(201,168,76,0.35);
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background: #070F24; padding: 60px 6vw 40px;
+      border-top: 1px solid rgba(201,168,76,0.1);
+    }
+    .footer-inner {
+      max-width: 1300px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 30px;
+    }
+    .footer-brand {
+      display: flex; align-items: center; gap: 14px;
+    }
+    .footer-brand-icon { width: 40px; height: 40px; }
+    .footer-brand-title {
+      font-family: var(--font-display); font-size: 18px; color: var(--gold);
+      font-weight: 700; letter-spacing: 2px;
+    }
+    .footer-brand-sub {
+      font-size: 9px; color: rgba(201,168,76,0.5);
+      letter-spacing: 3px; text-transform: uppercase;
+    }
+    .footer-copy {
+      font-size: 11px; color: rgba(245,240,232,0.3); letter-spacing: 1px;
+    }
+    .footer-links { display: flex; gap: 30px; }
+    .footer-links a {
+      font-size: 11px; color: rgba(245,240,232,0.4); text-decoration: none;
+      letter-spacing: 1px; transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ─── BACK TO TOP ────────────────────────────────────── */
+    #backToTop {
+      position: fixed; bottom: 30px; right: 30px; z-index: 500;
+      width: 48px; height: 48px; background: var(--gold);
+      border: none; border-radius: 2px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; color: var(--navy);
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.3s, transform 0.3s, background 0.3s;
+      box-shadow: 0 8px 24px rgba(201,168,76,0.3);
+    }
+    #backToTop.show { opacity: 1; transform: translateY(0); }
+    #backToTop:hover { background: var(--gold-light); }
+
+    /* ─── GOLD LINE DECORATIONS ──────────────────────────── */
+    .gold-line {
+      width: 60px; height: 2px; background: var(--gold); margin-bottom: 24px;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .hero-content { grid-template-columns: 1fr; gap: 60px; }
+      .hero-visual { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 60px; }
+      .about-img-wrap { display: none; }
+      .services-intro { grid-template-columns: 1fr; gap: 20px; }
+      .kontak-grid { grid-template-columns: 1fr; gap: 60px; }
+    }
+    @media (max-width: 768px) {
+      section { padding: 80px 5vw; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .vm-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .keu-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .legal-grid { grid-template-columns: 1fr; gap: 20px; }
+      .hero-stats { flex-wrap: wrap; gap: 24px; }
+    }
+    @media (max-width: 480px) {
+      .keu-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── NOTIFICATION ───────────────────────────────────── */
+    .toast {
+      position: fixed; bottom: 90px; right: 30px; z-index: 5000;
+      background: var(--gold); color: var(--navy); padding: 14px 24px;
+      border-radius: 2px; font-size: 13px; font-weight: 600;
+      transform: translateY(20px); opacity: 0;
+      transition: all 0.4s var(--ease-bounce);
+      box-shadow: 0 8px 24px rgba(201,168,76,0.4);
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+  </style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">
+    <svg class="loader-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="48" stroke="#C9A84C" stroke-width="1.5" opacity="0.4"/>
+      <circle cx="50" cy="50" r="48" stroke="#C9A84C" stroke-width="1.5"
+        stroke-dasharray="300" stroke-dashoffset="300"
+        style="animation: strokeAnim 2s ease forwards;"/>
+      <rect x="22" y="35" width="16" height="36" fill="#C9A84C"/>
+      <rect x="42" y="28" width="16" height="43" fill="#C9A84C"/>
+      <rect x="62" y="35" width="16" height="36" fill="#C9A84C"/>
+      <rect x="30" y="55" width="12" height="16" fill="#0D1B3E"/>
+      <rect x="58" y="55" width="12" height="16" fill="#0D1B3E"/>
+      <style>
+        @keyframes strokeAnim { to { stroke-dashoffset: 0; } }
+      </style>
+    </svg>
+    <div class="loader-text">HARAZAKI</div>
+    <div class="loader-sub">Togat Mentawai</div>
+    <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  </div>
+</div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#hero" onclick="closeMobile()">Beranda</a>
+  <a href="#about" onclick="closeMobile()">Tentang</a>
+  <a href="#visi-misi" onclick="closeMobile()">Visi & Misi</a>
+  <a href="#layanan" onclick="closeMobile()">Layanan</a>
+  <a href="#legalitas" onclick="closeMobile()">Legalitas</a>
+  <a href="#kontak" onclick="closeMobile()">Kontak</a>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#hero" class="nav-brand">
+    <svg class="nav-brand-icon" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="40" cy="40" r="38" stroke="#C9A84C" stroke-width="1.5"/>
+      <rect x="14" y="28" width="13" height="29" fill="#C9A84C"/>
+      <rect x="33" y="22" width="13" height="35" fill="#C9A84C"/>
+      <rect x="52" y="28" width="13" height="29" fill="#C9A84C"/>
+      <rect x="21" y="44" width="10" height="13" fill="#0D1B3E"/>
+      <rect x="49" y="44" width="10" height="13" fill="#0D1B3E"/>
+    </svg>
+    <div class="nav-brand-text">
+      <span class="nav-brand-title">HARAZAKI</span>
+      <span class="nav-brand-sub">Togat Mentawai</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">Tentang</a></li>
+    <li><a href="#visi-misi">Visi & Misi</a></li>
+    <li><a href="#layanan">Layanan</a></li>
+    <li><a href="#legalitas">Legalitas</a></li>
+    <li><a href="#kontak" class="nav-cta">Hubungi Kami</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        <span>Konsultan Konstruksi Profesional</span>
+      </div>
+      <h1 class="hero-title">
+        Membangun
+        <span class="hero-title-gold">Masa Depan</span>
+        Dengan Integritas
+      </h1>
+      <p class="hero-subtitle">Desain. Struktur. Pengawasan. Manajemen.</p>
+      <p class="hero-desc">
+        CV Harazaki Togat Mentawai hadir sebagai mitra terpercaya dalam perencanaan dan pengawasan konstruksi — menggabungkan keahlian teknis dengan pemahaman mendalam terhadap karakter geografis Kepulauan Mentawai dan sekitarnya.
+      </p>
+      <div class="hero-actions">
+        <a href="#layanan" class="btn-primary">Lihat Layanan Kami</a>
+        <a href="#kontak" class="btn-outline">Konsultasi Gratis</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-num">2025</div>
+          <div class="hero-stat-desc">Tahun Berdiri</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">4+</div>
+          <div class="hero-stat-desc">Bidang Layanan</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">100%</div>
+          <div class="hero-stat-desc">Komitmen Kualitas</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card-stack">
+        <div class="hero-card hero-card-1"></div>
+        <div class="hero-card hero-card-2"></div>
+        <div class="hero-card hero-card-3">
+          <svg class="hero-card-logo" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="40" r="38" stroke="#C9A84C" stroke-width="1.5"/>
+            <rect x="14" y="28" width="13" height="29" fill="#C9A84C"/>
+            <rect x="33" y="22" width="13" height="35" fill="#C9A84C"/>
+            <rect x="52" y="28" width="13" height="29" fill="#C9A84C"/>
+            <rect x="21" y="44" width="10" height="13" fill="#0D1B3E"/>
+            <rect x="49" y="44" width="10" height="13" fill="#0D1B3E"/>
+          </svg>
+          <div class="hero-card-label">Profil Perusahaan</div>
+          <div class="hero-card-name">CV Harazaki<br>Togat Mentawai</div>
+          <div class="hero-card-divider"></div>
+          <div class="hero-card-stat">
+            <div class="hero-stat-item">
+              <span class="hero-stat-label">Status</span>
+              <span class="hero-stat-value">Terdaftar Resmi</span>
+            </div>
+            <div class="hero-stat-item">
+              <span class="hero-stat-label">Asosiasi</span>
+              <span class="hero-stat-value">PERKONINDO</span>
+            </div>
+            <div class="hero-stat-item">
+              <span class="hero-stat-label">Bidang</span>
+              <span class="hero-stat-value">Konsultan Konstruksi</span>
+            </div>
+            <div class="hero-stat-item">
+              <span class="hero-stat-label">Lokasi</span>
+              <span class="hero-stat-value">Kep. Mentawai</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-container">
+    <div class="about-grid">
+      <div class="about-img-wrap reveal-left">
+        <div class="about-img-frame">
+          <div class="about-img-inner">
+            <svg class="about-logo-big" viewBox="0 0 120 120" fill="none">
+              <circle cx="60" cy="60" r="57" stroke="#C9A84C" stroke-width="2"/>
+              <rect x="20" y="42" width="20" height="44" fill="#C9A84C"/>
+              <rect x="50" y="32" width="20" height="54" fill="#C9A84C"/>
+              <rect x="80" y="42" width="20" height="44" fill="#0D1B3E" stroke="#C9A84C" stroke-width="1"/>
+              <rect x="28" y="66" width="14" height="20" fill="#0D1B3E"/>
+              <rect x="80" y="42" width="20" height="44" fill="#C9A84C"/>
+              <rect x="87" y="66" width="14" height="20" fill="#0D1B3E"/>
+            </svg>
+            <div class="about-est">Didirikan</div>
+            <div class="about-year">2025</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-text reveal-right">
+        <div class="section-eyebrow">
+          <div class="eyebrow-line"></div>
+          <span class="eyebrow-text">Tentang Kami</span>
+        </div>
+        <h2 class="section-title dark" style="margin-bottom: 28px;">
+          Konsultan Konstruksi<br>
+          <span style="color: var(--gold);">Tepercaya & Profesional</span>
+        </h2>
+        <p class="about-lead">
+          "Berakar dari pemahaman mendalam terhadap karakter geografis dan kebutuhan infrastruktur lokal."
+        </p>
+        <p class="about-body">
+          CV HARAZAKI TOGAT MENTAWAI adalah perusahaan konsultan konstruksi yang bergerak di bidang jasa perencanaan, pengawasan, dan manajemen proyek untuk berbagai infrastruktur dan bangunan. Kami berkomitmen untuk menghadirkan desain yang tidak hanya kokoh dan fungsional, tetapi juga selaras dengan lingkungan sekitar.
+        </p>
+        <p class="about-body" style="margin-top: -16px;">
+          Kami mengusung pendekatan desain modern yang efisien, dengan spesialisasi pada struktur yang kuat, minimalis, dan fungsional — mengoptimalkan penggunaan material berdaya tahan tinggi seperti beton ekspos dan semen cor untuk memastikan estetika jangka panjang serta efisiensi biaya.
+        </p>
+        <div class="about-tags">
+          <span class="about-tag">Arsitektur Modern</span>
+          <span class="about-tag">Teknik Sipil</span>
+          <span class="about-tag">Manajemen Proyek</span>
+          <span class="about-tag">Beton Ekspos</span>
+          <span class="about-tag">Efisiensi Biaya</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISI MISI -->
+<section id="visi-misi">
+  <div class="vm-bg"></div>
+  <div class="section-container" style="position:relative;z-index:1;">
+    <div class="section-eyebrow reveal">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text" style="color:var(--gold);">Arah & Tujuan</span>
+    </div>
+    <h2 class="section-title light reveal">Visi & Misi<br>Perusahaan</h2>
+    <div class="vm-grid">
+      <div class="vm-card reveal-left">
+        <div class="vm-icon">🏛️</div>
+        <div class="vm-title">Visi</div>
+        <p class="vm-text">
+          Menjadi perusahaan konsultan konstruksi terkemuka yang dikenal atas integritas, inovasi desain, dan kontribusi nyata dalam pembangunan infrastruktur yang <strong style="color:var(--gold-light);">aman, estetis, dan berkelanjutan.</strong>
+        </p>
+      </div>
+      <div class="vm-card reveal-right">
+        <div class="vm-icon">🎯</div>
+        <div class="vm-title">Misi</div>
+        <ul class="vm-list">
+          <li>Menyediakan jasa konsultasi teknik dengan standar profesionalisme tertinggi.</li>
+          <li>Menghadirkan solusi desain inovatif dan fungsional yang menjawab kebutuhan spesifik setiap klien.</li>
+          <li>Mengedepankan keselamatan struktur (<em>structural safety</em>) dan efisiensi material tanpa mengorbankan estetika.</li>
+          <li>Membangun hubungan kemitraan jangka panjang yang didasarkan pada kepercayaan dan transparansi.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LAYANAN -->
+<section id="layanan">
+  <div class="section-container">
+    <div class="services-intro">
+      <div class="reveal-left">
+        <div class="section-eyebrow">
+          <div class="eyebrow-line"></div>
+          <span class="eyebrow-text">Apa Yang Kami Tawarkan</span>
+        </div>
+        <h2 class="section-title dark">Layanan<br>Unggulan Kami</h2>
+      </div>
+      <p class="services-desc reveal-right">
+        Kami menyediakan solusi konstruksi komprehensif — dari perencanaan konseptual hingga pengawasan lapangan — memastikan setiap proyek terwujud sesuai standar teknis dan visi klien.
+      </p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal" style="transition-delay:0.1s">
+        <div class="service-num">01</div>
+        <div class="service-icon">🏗️</div>
+        <div class="service-title">Perencanaan & Desain Arsitektur</div>
+        <p class="service-text">Pembuatan konsep bangunan, desain interior/eksterior, serta visualisasi 3D dengan pendekatan arsitektur modern dan minimalis.</p>
+      </div>
+      <div class="service-card featured reveal" style="transition-delay:0.2s">
+        <div class="service-num">02</div>
+        <div class="service-icon">⚙️</div>
+        <div class="service-title">Teknik Sipil & Analisis Struktur</div>
+        <p class="service-text">Perhitungan struktur beton bertulang, struktur baja, serta perencanaan fondasi yang disesuaikan dengan kondisi tanah lokal.</p>
+      </div>
+      <div class="service-card reveal" style="transition-delay:0.3s">
+        <div class="service-num">03</div>
+        <div class="service-icon">🔍</div>
+        <div class="service-title">Pengawasan Proyek (Supervisi)</div>
+        <p class="service-text">Memastikan pelaksanaan pembangunan di lapangan berjalan sesuai dengan dokumen rencana, spesifikasi teknis, dan standar keselamatan.</p>
+      </div>
+      <div class="service-card reveal" style="transition-delay:0.4s">
+        <div class="service-num">04</div>
+        <div class="service-icon">📊</div>
+        <div class="service-title">Manajemen Konstruksi & Estimasi Biaya</div>
+        <p class="service-text">Penyusunan Rencana Anggaran Biaya (RAB), jadwal kerja (<em>time schedule</em>), dan optimasi efisiensi material.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KEUNGGULAN -->
+<section id="keunggulan">
+  <div class="section-container">
+    <div style="text-align:center;" class="reveal">
+      <div class="section-eyebrow" style="justify-content:center;">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text" style="color:var(--gold);">Mengapa Memilih Kami</span>
+        <div class="eyebrow-line"></div>
+      </div>
+      <h2 class="section-title light" style="margin-top:12px;">Keunggulan Kami</h2>
+    </div>
+    <div class="keu-grid">
+      <div class="keu-item reveal" style="transition-delay:0.1s">
+        <div class="keu-num">100<span class="keu-unit">%</span></div>
+        <div class="keu-label">Komitmen Kualitas</div>
+        <div class="keu-desc">Setiap proyek digarap dengan standar profesionalisme tertinggi</div>
+      </div>
+      <div class="keu-item reveal" style="transition-delay:0.2s">
+        <div class="keu-num">4<span class="keu-unit">+</span></div>
+        <div class="keu-label">Bidang Spesialisasi</div>
+        <div class="keu-desc">Arsitektur, sipil, pengawasan, dan manajemen konstruksi</div>
+      </div>
+      <div class="keu-item reveal" style="transition-delay:0.3s">
+        <div class="keu-num">🏝️</div>
+        <div class="keu-label">Keahlian Lokal</div>
+        <div class="keu-desc">Pemahaman mendalam terhadap karakter geografis Mentawai</div>
+      </div>
+      <div class="keu-item reveal" style="transition-delay:0.1s">
+        <div class="keu-num">✓</div>
+        <div class="keu-label">Legalitas Lengkap</div>
+        <div class="keu-desc">Terdaftar resmi di Kemenkumham & PERKONINDO</div>
+      </div>
+      <div class="keu-item reveal" style="transition-delay:0.2s">
+        <div class="keu-num">3D</div>
+        <div class="keu-label">Visualisasi Modern</div>
+        <div class="keu-desc">Rendering 3D untuk gambaran nyata sebelum pembangunan</div>
+      </div>
+      <div class="keu-item reveal" style="transition-delay:0.3s">
+        <div class="keu-num">💰</div>
+        <div class="keu-label">Efisiensi Biaya</div>
+        <div class="keu-desc">Estimasi RAB akurat dengan optimasi penggunaan material</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEGALITAS -->
+<section id="legalitas">
+  <div class="section-container">
+    <div class="section-eyebrow reveal">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">Dokumen Resmi</span>
+    </div>
+    <h2 class="section-title dark reveal">Legalitas &<br>
+      <span style="color:var(--gold);">Keanggotaan</span>
+    </h2>
+    <div class="legal-grid">
+      <div class="legal-card reveal" style="transition-delay:0.1s">
+        <span class="legal-icon">🏛️</span>
+        <div class="legal-title">Akta Pendirian</div>
+        <div class="legal-num">No. AHU-0054243-AH.01.14 Tahun 2025</div>
+        <p class="legal-desc">Terdaftar resmi di Kementerian Hukum Republik Indonesia, Direktorat Jenderal Administrasi Hukum Umum. Diterbitkan 23 Juni 2025.</p>
+      </div>
+      <div class="legal-card reveal" style="transition-delay:0.2s">
+        <span class="legal-icon">📋</span>
+        <div class="legal-title">KTA PERKONINDO</div>
+        <div class="legal-num">No. Anggota: 00090767.001</div>
+        <p class="legal-desc">Anggota resmi Persatuan Konsultan Indonesia (PERKONINDO). Berlaku s.d. 31 Mei 2029. Ditetapkan di Jakarta, 1 Juni 2026.</p>
+      </div>
+      <div class="legal-card reveal" style="transition-delay:0.3s">
+        <span class="legal-icon">🔖</span>
+        <div class="legal-title">NPWP Badan Usaha</div>
+        <div class="legal-num">1000000009841628</div>
+        <p class="legal-desc">Terdaftar sebagai Badan Usaha Nasional dengan status penanaman modal dan operasional di Kabupaten Kepulauan Mentawai, Sumatera Barat.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAK -->
+<section id="kontak">
+  <div class="section-container">
+    <div class="kontak-grid">
+      <div>
+        <div class="section-eyebrow reveal">
+          <div class="eyebrow-line"></div>
+          <span class="eyebrow-text" style="color:var(--gold);">Hubungi Kami</span>
+        </div>
+        <h2 class="section-title light reveal">Mari Wujudkan<br>Proyek Anda</h2>
+        <p class="kontak-lead reveal">
+          Siap berkonsultasi tentang rencana konstruksi Anda? Tim kami siap membantu dengan solusi terbaik.
+        </p>
+        <div class="kontak-items">
+          <div class="kontak-item reveal" style="transition-delay:0.1s">
+            <div class="kontak-item-icon">📞</div>
+            <div>
+              <div class="kontak-item-label">Telepon / WhatsApp</div>
+              <div class="kontak-item-value">0812 9567 3015</div>
+            </div>
+          </div>
+          <div class="kontak-item reveal" style="transition-delay:0.2s">
+            <div class="kontak-item-icon">✉️</div>
+            <div>
+              <div class="kontak-item-label">Email</div>
+              <div class="kontak-item-value">harazakitogatmentawai@gmail.com</div>
+            </div>
+          </div>
+          <div class="kontak-item reveal" style="transition-delay:0.3s">
+            <div class="kontak-item-icon">🌐</div>
+            <div>
+              <div class="kontak-item-label">Website</div>
+              <div class="kontak-item-value">www.harazakitogatmtw.com</div>
+            </div>
+          </div>
+          <div class="kontak-item reveal" style="transition-delay:0.4s">
+            <div class="kontak-item-icon">📍</div>
+            <div>
+              <div class="kontak-item-label">Alamat Kantor</div>
+              <div class="kontak-item-value">Dusun Subur Makmur, Desa Bukit Pamewa, Kec. Sipora Utara, Kab. Kepulauan Mentawai, Sumatera Barat</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="kontak-form-card reveal-right">
+        <div class="form-title">Kirim Pesan</div>
+        <div class="form-group">
+          <label class="form-label">Nama Lengkap</label>
+          <input type="text" class="form-input" placeholder="Nama Anda" id="formName" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Nomor Telepon</label>
+          <input type="text" class="form-input" placeholder="0812 xxxx xxxx" id="formPhone" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Jenis Layanan</label>
+          <select class="form-input" id="formService" style="cursor:pointer;">
+            <option value="" disabled selected style="background:#0D1B3E;">Pilih Layanan</option>
+            <option value="arsitektur" style="background:#0D1B3E;">Perencanaan & Desain Arsitektur</option>
+            <option value="sipil" style="background:#0D1B3E;">Teknik Sipil & Analisis Struktur</option>
+            <option value="supervisi" style="background:#0D1B3E;">Pengawasan Proyek (Supervisi)</option>
+            <option value="manajemen" style="background:#0D1B3E;">Manajemen Konstruksi & Estimasi Biaya</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Pesan</label>
+          <textarea class="form-input" placeholder="Ceritakan kebutuhan proyek Anda..." id="formMessage"></textarea>
+        </div>
+        <button class="form-submit" onclick="submitForm()">Kirim Pesan</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <svg class="footer-brand-icon" viewBox="0 0 80 80" fill="none">
+        <circle cx="40" cy="40" r="38" stroke="#C9A84C" stroke-width="1.5"/>
+        <rect x="14" y="28" width="13" height="29" fill="#C9A84C"/>
+        <rect x="33" y="22" width="13" height="35" fill="#C9A84C"/>
+        <rect x="52" y="28" width="13" height="29" fill="#C9A84C"/>
+        <rect x="21" y="44" width="10" height="13" fill="#070F24"/>
+        <rect x="49" y="44" width="10" height="13" fill="#070F24"/>
+      </svg>
+      <div>
+        <div class="footer-brand-title">HARAZAKI</div>
+        <div class="footer-brand-sub">Togat Mentawai</div>
+      </div>
+    </div>
+    <div class="footer-copy">© 2025 CV Harazaki Togat Mentawai. All rights reserved.</div>
+    <div class="footer-links">
+      <a href="#about">Tentang</a>
+      <a href="#layanan">Layanan</a>
+      <a href="#kontak">Kontak</a>
+    </div>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<div class="toast" id="toast">✓ Pesan berhasil dikirim!</div>
+
+<script>
+  // ─── LOADER ───────────────────────────────────────────────
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loader').classList.add('hidden');
+    }, 2200);
+  });
+
+  // ─── CURSOR ───────────────────────────────────────────────
+  const cursor = document.getElementById('cursor');
+  const cursorRing = document.getElementById('cursorRing');
+  let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX; mouseY = e.clientY;
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
+  });
+
+  function animRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top = ringY + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  document.querySelectorAll('a, button, .service-card, .keu-item, .legal-card, .vm-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.classList.add('hovered');
+      cursorRing.classList.add('hovered');
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.classList.remove('hovered');
+      cursorRing.classList.remove('hovered');
+    });
+  });
+
+  // ─── NAVBAR SCROLL ────────────────────────────────────────
+  const navbar = document.getElementById('navbar');
+  const backToTop = document.getElementById('backToTop');
+
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    navbar.classList.toggle('scrolled', y > 60);
+    backToTop.classList.toggle('show', y > 400);
+  });
+
+  // ─── MOBILE MENU ──────────────────────────────────────────
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+
+  function closeMobile() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // ─── SCROLL REVEAL ────────────────────────────────────────
+  const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        const delay = entry.target.style.transitionDelay || '0s';
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, parseFloat(delay) * 1000);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // ─── COUNTER ANIMATION ────────────────────────────────────
+  function animateCounters() {
+    document.querySelectorAll('.keu-num').forEach(el => {
+      const text = el.textContent;
+      const num = parseInt(text);
+      if (isNaN(num)) return;
+      const suffix = text.replace(/[0-9]/g, '');
+      let start = 0;
+      const duration = 1500;
+      const step = (timestamp) => {
+        if (!start) start = timestamp;
+        const progress = Math.min((timestamp - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.floor(eased * num) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+  }
+
+  const keuSection = document.querySelector('#keunggulan');
+  const keuObserver = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      animateCounters();
+      keuObserver.disconnect();
+    }
+  }, { threshold: 0.3 });
+  keuObserver.observe(keuSection);
+
+  // ─── FORM SUBMIT ──────────────────────────────────────────
+  function submitForm() {
+    const name = document.getElementById('formName').value.trim();
+    const phone = document.getElementById('formPhone').value.trim();
+    const msg = document.getElementById('formMessage').value.trim();
+
+    if (!name || !phone || !msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = '⚠ Mohon lengkapi semua field.';
+      toast.style.background = '#E53935';
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+      return;
+    }
+
+    const waMsg = encodeURIComponent(
+      `Halo CV Harazaki Togat Mentawai,\n\nNama: ${name}\nTelp: ${phone}\n\nPesan: ${msg}`
+    );
+    window.open(`https://wa.me/6281295673015?text=${waMsg}`, '_blank');
+
+    const toast = document.getElementById('toast');
+    toast.textContent = '✓ Mengarahkan ke WhatsApp...';
+    toast.style.background = 'var(--gold)';
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+
+    document.getElementById('formName').value = '';
+    document.getElementById('formPhone').value = '';
+    document.getElementById('formMessage').value = '';
+  }
+
+  // ─── SMOOTH ACTIVE NAV ────────────────────────────────────
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 100) {
+        current = sec.getAttribute('id');
+      }
+    });
+    navLinks.forEach(link => {
+      link.style.color = link.getAttribute('href') === `#${current}` ? 'var(--gold)' : '';
+    });
+  });
+
+  // ─── HERO CARD TILT ───────────────────────────────────────
+  const heroCard3 = document.querySelector('.hero-card-3');
+  if (heroCard3) {
+    document.addEventListener('mousemove', e => {
+      const rect = heroCard3.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / 30;
+      const dy = (e.clientY - cy) / 30;
+      heroCard3.style.transform = `perspective(600px) rotateY(${dx}deg) rotateX(${-dy}deg)`;
+    });
+    document.addEventListener('mouseleave', () => {
+      heroCard3.style.transform = '';
+    });
+  }
+</script>
+</body>
+</html>
